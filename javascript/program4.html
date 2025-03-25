@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Symmetry Checker</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        textarea { width: 300px; height: 100px; }
+        button { margin-top: 10px; padding: 8px; cursor: pointer; }
+        #result { margin-top: 15px; font-weight: bold; white-space: pre-line; }
+    </style>
+</head>
+<body>
+
+    <h2>Matrix Symmetry Checker</h2>
+    <p>Enter matrix (comma-separated, new line for rows):</p>
+    <textarea id="matrixInput" placeholder="1,2,3&#10;2,5,6&#10;3,6,9"></textarea><br>
+    <button onclick="checkMatrix()">Check Symmetry</button>
+
+    <p id="result"></p>
+
+    <script>
+        function parseMatrix(input) {
+            return input.trim().split("\n").map(row => row.split(",").map(Number));
+        }
+
+        function isSquareMatrix(matrix) {
+            return matrix.length > 0 && matrix.every(row => row.length === matrix.length);
+        }
+
+        function isSymmetricMatrix(matrix) {
+            if (!isSquareMatrix(matrix)) return false;
+            return matrix.every((row, i) => row.every((val, j) => val === matrix[j][i]));
+        }
+
+        function checkMatrix() {
+            let input = document.getElementById("matrixInput").value;
+            let matrix = parseMatrix(input);
+
+            if (!isSquareMatrix(matrix)) {
+                document.getElementById("result").innerText = "❌ The matrix is not square!";
+                return;
+            }
+
+            let resultText = `✔ Symmetric Matrix: ${isSymmetricMatrix(matrix)}`;
+            document.getElementById("result").innerText = resultText;
+        }
+    </script>
+
+</body>
+</html>
