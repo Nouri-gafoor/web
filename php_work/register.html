@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: #a4a4a4;
+        }
+        form {
+            background: rgb(209, 241, 244);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            display: block; /* Ensure errors are on a separate line */
+            margin-bottom: 5px;
+        }
+        label {
+            display: block; /* Ensure label appears below the error */
+            font-style: unset;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px; /* Adds some spacing */
+        }
+        
+        button {
+            background-color: #2885a7;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: auto; /* Prevents full width */
+        }
+        button:hover {
+            background-color: #00a3fb;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="registrationForm" action="register.php" method="POST">
+        <h2 style="text-align: center;">Register Here</h2>
+        
+        <div class="input-group">
+            <span class="error" id="nameError"></span>
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name">
+        </div>
+
+        <div class="input-group">
+            <span class="error" id="emailError"></span>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+        </div>
+
+        <div class="input-group">
+            <span class="error" id="passwordError"></span>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+        </div>
+
+        <div class="input-group">
+            <span class="error" id="confirmPasswordError"></span>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword">
+        </div>
+
+        <div class="button-container">
+            <button type="submit">Register</button>
+        </div>
+        
+    </form>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            // Clear previous errors
+            document.getElementById("nameError").innerText = "";
+            document.getElementById("emailError").innerText = "";
+            document.getElementById("passwordError").innerText = "";
+            document.getElementById("confirmPasswordError").innerText = "";
+        
+            // Get input values
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value.trim();
+            let confirmPassword = document.getElementById("confirmPassword").value.trim();
+        
+            let isValid = true;
+        
+            // Name validation
+            if (name === "") {
+                document.getElementById("nameError").innerText = "Name is required.";
+                isValid = false;
+            }
+        
+            // Email validation
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById("emailError").innerText = "Enter a valid email.";
+                isValid = false;
+            }
+        
+            // Password validation
+            if (password.length < 6) {
+                document.getElementById("passwordError").innerText = "Password must be at least 6 characters.";
+                isValid = false;
+            }
+        
+            // Confirm Password validation
+            let confirmPasswordError = document.getElementById("confirmPasswordError");
+            if (confirmPassword === "") {
+                confirmPasswordError.innerText = "Confirm Password is required.";
+                confirmPasswordError.style.color = "red";
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                confirmPasswordError.innerText = "Passwords do not match.";
+                confirmPasswordError.style.color = "red";
+                isValid = false;
+            }
+        
+            // 🚨 Only prevent submission if form is NOT valid
+            if (!isValid) {
+                event.preventDefault(); // stop submission if errors
+            }
+        });        
+        
+    </script>        
+</body>
+</html>
