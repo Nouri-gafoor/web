@@ -1,0 +1,39 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+    <script>
+        function validateForm() {
+            const physics = parseFloat(document.getElementById('physics').value);
+            const chemistry = parseFloat(document.getElementById('chemistry').value);
+            const maths = parseFloat(document.getElementById('maths').value);
+            const avg = (physics + chemistry + maths) / 3;
+
+            if (avg < 45) {
+                alert("Not eligible to apply. Percentage is less than 45%.");
+                return false;
+            }
+
+            alert("Form submitted successfully!");
+            return true; // Allow form submission
+        }
+    </script>
+</head>
+<body>
+    <h2>Student Registration Form</h2>
+    <form onsubmit="return validateForm()">
+        Name: <input type="text" name="name" required><br><br>
+        Age: <input type="number" name="age" required><br><br>
+        Email: <input type="email" name="email" required><br><br>
+        Contact: <input type="text" name="contact" required><br><br>
+        Address: <input type="text" name="address" required><br><br>
+        SSLC Percentage: <input type="number" name="sslc" required><br><br>
+        +2 Marks:<br>
+        Physics: <input type="number" id="physics" required><br>
+        Chemistry: <input type="number" id="chemistry" required><br>
+        Maths: <input type="number" id="maths" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
